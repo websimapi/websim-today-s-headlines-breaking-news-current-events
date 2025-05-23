@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Headlines - Breaking News & Current Events</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><i class="fas fa-newspaper"></i> NewsToday</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-category="all">All News</button>
+                <button class="nav-btn" data-category="breaking">Breaking</button>
+                <button class="nav-btn" data-category="politics">Politics</button>
+                <button class="nav-btn" data-category="technology">Tech</button>
+                <button class="nav-btn" data-category="sports">Sports</button>
+                <button class="nav-btn" data-category="business">Business</button>
+            </nav>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search news...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="breaking-banner">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span class="breaking-text">BREAKING NEWS: </span>
+                <span class="breaking-headline">Major developments in global markets as tech stocks surge</span>
+            </div>
+
+            <div class="news-grid" id="newsGrid">
+                <!-- News articles will be populated by JavaScript -->
+            </div>
+
+            <div class="load-more-container">
+                <button id="loadMoreBtn" class="load-more-btn">
+                    <i class="fas fa-plus"></i> Load More Stories
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 NewsToday. All rights reserved. | <span id="lastUpdated"></span></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
