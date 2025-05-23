@@ -10,101 +10,226 @@ class NewsApp {
     }
 
     init() {
-        this.generateNewsData();
+        this.generateRealisticNewsData();
         this.setupEventListeners();
         this.renderNews();
         this.updateLastUpdated();
+        this.showDataDisclaimer();
     }
 
-    generateNewsData() {
-        const categories = ['breaking', 'politics', 'technology', 'sports', 'business'];
-        const sources = ['Reuters', 'AP News', 'BBC', 'CNN', 'The Guardian', 'WSJ', 'Tech Crunch', 'ESPN'];
-        
-        const newsTemplates = [
+    generateRealisticNewsData() {
+        this.allNews = [
             {
+                id: 1,
                 category: 'breaking',
-                title: 'Global Climate Summit Reaches Historic Agreement',
-                summary: 'World leaders unite on unprecedented climate action plan with binding commitments for 2030.',
-                timeAgo: '15 minutes ago'
+                title: 'OpenAI Launches GPT-4 Turbo with Enhanced Capabilities',
+                summary: 'The new model features improved reasoning, longer context windows, and reduced costs for developers building AI applications.',
+                timeAgo: '2 hours ago',
+                source: 'TechCrunch',
+                url: 'https://techcrunch.com/2024/11/06/openai-launches-gpt-4-turbo-enhanced-capabilities',
+                imageAlt: 'OpenAI logo and AI visualization',
+                featured: true,
+                readTime: '4 min read'
             },
             {
-                category: 'technology',
-                title: 'AI Breakthrough: New Model Achieves Human-Level Reasoning',
-                summary: 'Revolutionary artificial intelligence system demonstrates unprecedented problem-solving capabilities across multiple domains.',
-                timeAgo: '1 hour ago'
-            },
-            {
+                id: 2,
                 category: 'politics',
-                title: 'International Trade Relations Show Signs of Improvement',
-                summary: 'Diplomatic efforts yield positive results as major economies move toward reducing trade barriers.',
-                timeAgo: '2 hours ago'
+                title: 'Climate Summit 2024: Nations Commit to Ambitious Carbon Reduction Targets',
+                summary: 'COP29 conference concludes with unprecedented agreements on renewable energy transition and climate finance.',
+                timeAgo: '4 hours ago',
+                source: 'Reuters',
+                url: 'https://www.reuters.com/sustainability/climate/climate-summit-2024-nations-commit-carbon-reduction-2024-11-06',
+                imageAlt: 'Climate summit meeting hall',
+                featured: true,
+                readTime: '6 min read'
             },
             {
+                id: 3,
+                category: 'technology',
+                title: 'Microsoft Announces Major AI Integration Across Office Suite',
+                summary: 'Copilot AI assistant now available in Word, Excel, and PowerPoint with advanced document generation capabilities.',
+                timeAgo: '6 hours ago',
+                source: 'The Verge',
+                url: 'https://www.theverge.com/2024/11/6/microsoft-office-copilot-ai-integration-announcement',
+                imageAlt: 'Microsoft Office applications with AI icons',
+                readTime: '3 min read'
+            },
+            {
+                id: 4,
                 category: 'business',
-                title: 'Tech Stocks Rally as Market Confidence Returns',
-                summary: 'Major technology companies see significant gains following positive earnings reports and innovation announcements.',
-                timeAgo: '3 hours ago'
+                title: 'Tesla Stock Surges Following Record Q4 Delivery Numbers',
+                summary: 'Electric vehicle manufacturer reports 40% increase in deliveries compared to previous quarter, beating analyst expectations.',
+                timeAgo: '8 hours ago',
+                source: 'Bloomberg',
+                url: 'https://www.bloomberg.com/news/articles/2024-11-06/tesla-stock-surges-record-q4-delivery-numbers',
+                imageAlt: 'Tesla vehicles at delivery center',
+                readTime: '5 min read'
             },
             {
+                id: 5,
                 category: 'sports',
-                title: 'Winter Olympics Preparations Enter Final Phase',
-                summary: 'Athletes from around the world prepare for upcoming winter games as venues undergo final testing.',
-                timeAgo: '4 hours ago'
+                title: 'FIFA World Cup 2026 Venue Selection Finalized',
+                summary: 'Joint hosting by USA, Canada, and Mexico confirmed with 16 cities selected for the expanded 48-team tournament.',
+                timeAgo: '10 hours ago',
+                source: 'ESPN',
+                url: 'https://www.espn.com/soccer/story/fifa-world-cup-2026-venue-selection-finalized',
+                imageAlt: 'FIFA World Cup trophy and stadium',
+                readTime: '4 min read'
             },
             {
+                id: 6,
                 category: 'technology',
-                title: 'Renewable Energy Storage Reaches New Efficiency Record',
-                summary: 'Breakthrough in battery technology promises to revolutionize clean energy storage capabilities.',
-                timeAgo: '5 hours ago'
+                title: 'Apple Vision Pro Gets Major Software Update with New Features',
+                summary: 'VisionOS 2.0 introduces improved hand tracking, new productivity apps, and enhanced spatial computing capabilities.',
+                timeAgo: '12 hours ago',
+                source: 'MacRumors',
+                url: 'https://www.macrumors.com/2024/11/06/apple-vision-pro-visionos-2-0-update',
+                imageAlt: 'Apple Vision Pro headset',
+                readTime: '3 min read'
             },
             {
-                category: 'politics',
-                title: 'Healthcare Reform Bill Advances Through Legislature',
-                summary: 'Bipartisan support emerges for comprehensive healthcare improvements affecting millions.',
-                timeAgo: '6 hours ago'
-            },
-            {
-                category: 'business',
-                title: 'Cryptocurrency Market Stabilizes After Recent Volatility',
-                summary: 'Digital currencies show renewed stability as regulatory frameworks become clearer worldwide.',
-                timeAgo: '7 hours ago'
-            },
-            {
+                id: 7,
                 category: 'breaking',
-                title: 'Space Mission Successfully Reaches Mars Orbit',
-                summary: 'International space collaboration achieves major milestone in Mars exploration program.',
-                timeAgo: '8 hours ago'
+                title: 'Major Breakthrough in Quantum Computing Achieved by Google',
+                summary: 'Researchers demonstrate quantum advantage in practical applications, marking significant milestone in computing evolution.',
+                timeAgo: '14 hours ago',
+                source: 'Nature',
+                url: 'https://www.nature.com/articles/google-quantum-computing-breakthrough-2024',
+                imageAlt: 'Quantum computer components',
+                readTime: '7 min read'
             },
             {
-                category: 'sports',
-                title: 'Championship Series Enters Decisive Final Games',
-                summary: 'Athletic competition reaches climax as teams battle for ultimate victory in thrilling finale.',
-                timeAgo: '9 hours ago'
-            },
-            {
-                category: 'technology',
-                title: 'Quantum Computing Milestone Achieved by Research Team',
-                summary: 'Scientists demonstrate practical quantum advantage in real-world problem solving.',
-                timeAgo: '10 hours ago'
-            },
-            {
+                id: 8,
                 category: 'business',
-                title: 'Global Supply Chain Networks Show Resilience Recovery',
-                summary: 'International trade flows normalize as logistics innovations improve efficiency.',
-                timeAgo: '11 hours ago'
+                title: 'Amazon Announces Expansion of Same-Day Delivery to 100 New Cities',
+                summary: 'E-commerce giant continues logistics investment with AI-powered delivery optimization and drone technology.',
+                timeAgo: '16 hours ago',
+                source: 'Wall Street Journal',
+                url: 'https://www.wsj.com/articles/amazon-same-day-delivery-expansion-100-cities',
+                imageAlt: 'Amazon delivery truck and drone',
+                readTime: '4 min read'
+            },
+            {
+                id: 9,
+                category: 'politics',
+                title: 'EU Passes Comprehensive AI Regulation Act',
+                summary: 'European Parliament approves landmark legislation setting global standards for artificial intelligence development and deployment.',
+                timeAgo: '18 hours ago',
+                source: 'BBC News',
+                url: 'https://www.bbc.com/news/technology/eu-ai-regulation-act-passed-2024',
+                imageAlt: 'European Parliament building',
+                readTime: '5 min read'
+            },
+            {
+                id: 10,
+                category: 'sports',
+                title: 'NBA Season Tips Off with Record-Breaking Viewership',
+                summary: 'Opening night games draw largest television audience in league history, driven by international star power and new broadcast deals.',
+                timeAgo: '20 hours ago',
+                source: 'Sports Illustrated',
+                url: 'https://www.si.com/nba/2024/11/05/season-tipoff-record-viewership',
+                imageAlt: 'NBA basketball court with players',
+                readTime: '3 min read'
+            },
+            {
+                id: 11,
+                category: 'technology',
+                title: 'Meta Unveils Next-Generation AR Glasses Prototype',
+                summary: 'Mark Zuckerberg demonstrates lightweight augmented reality glasses with full-day battery life and neural interface controls.',
+                timeAgo: '22 hours ago',
+                source: 'Ars Technica',
+                url: 'https://arstechnica.com/gadgets/2024/11/05/meta-ar-glasses-prototype-neural-interface',
+                imageAlt: 'Meta AR glasses prototype',
+                readTime: '6 min read'
+            },
+            {
+                id: 12,
+                category: 'business',
+                title: 'Renewable Energy Investment Reaches $2 Trillion Milestone',
+                summary: 'Global clean energy spending accelerates as solar and wind projects become more cost-effective than fossil fuels.',
+                timeAgo: '1 day ago',
+                source: 'Financial Times',
+                url: 'https://www.ft.com/content/renewable-energy-investment-2-trillion-milestone',
+                imageAlt: 'Solar panels and wind turbines',
+                readTime: '5 min read'
             }
         ];
+    }
 
-        this.allNews = newsTemplates.map((template, index) => ({
-            id: index + 1,
-            ...template,
-            source: sources[Math.floor(Math.random() * sources.length)],
-            featured: index < 2 // First two articles are featured
-        }));
+    showDataDisclaimer() {
+        const disclaimer = document.createElement('div');
+        disclaimer.className = 'data-disclaimer';
+        disclaimer.innerHTML = `
+            <div class="disclaimer-content">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <strong>Demo Notice:</strong> This application demonstrates realistic news integration structure. 
+                    URLs and content are examples for demonstration purposes. 
+                    <a href="#" id="learnMoreBtn">Learn about real implementation</a>
+                </div>
+                <button id="dismissDisclaimer" class="dismiss-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(disclaimer);
+        
+        document.getElementById('dismissDisclaimer').addEventListener('click', () => {
+            disclaimer.remove();
+        });
+        
+        document.getElementById('learnMoreBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showImplementationInfo();
+        });
+    }
+
+    showImplementationInfo() {
+        const modal = document.createElement('div');
+        modal.className = 'info-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-code"></i> Real News Integration Guide</h3>
+                    <button id="closeModal" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>To implement with real news data:</h4>
+                    <ul>
+                        <li><strong>News APIs:</strong> Integrate with NewsAPI, Guardian API, or Reuters API</li>
+                        <li><strong>Real URLs:</strong> Fetch actual article URLs from news sources</li>
+                        <li><strong>Live Updates:</strong> Implement WebSocket connections for real-time news</li>
+                        <li><strong>Images:</strong> Use article thumbnail URLs from news providers</li>
+                        <li><strong>Search:</strong> Connect to news search engines for dynamic content</li>
+                    </ul>
+                    <h4>Recommended APIs:</h4>
+                    <div class="api-list">
+                        <span class="api-tag">NewsAPI.org</span>
+                        <span class="api-tag">Guardian Open Platform</span>
+                        <span class="api-tag">Reuters Connect</span>
+                        <span class="api-tag">Associated Press API</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        document.getElementById('closeModal').addEventListener('click', () => {
+            modal.remove();
+        });
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
     }
 
     setupEventListeners() {
-        // Category navigation
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -115,24 +240,14 @@ class NewsApp {
             });
         });
 
-        // Search functionality
         const searchInput = document.getElementById('searchInput');
         searchInput.addEventListener('input', (e) => {
             this.searchNews(e.target.value);
         });
 
-        // Load more button
         document.getElementById('loadMoreBtn').addEventListener('click', () => {
             this.currentPage++;
             this.renderNews(true);
-        });
-
-        // News card clicks
-        document.addEventListener('click', (e) => {
-            const newsCard = e.target.closest('.news-card');
-            if (newsCard) {
-                this.openNewsDetail(newsCard.dataset.newsId);
-            }
         });
     }
 
@@ -151,7 +266,8 @@ class NewsApp {
 
         const filteredNews = this.allNews.filter(news => 
             news.title.toLowerCase().includes(query.toLowerCase()) ||
-            news.summary.toLowerCase().includes(query.toLowerCase())
+            news.summary.toLowerCase().includes(query.toLowerCase()) ||
+            news.source.toLowerCase().includes(query.toLowerCase())
         );
 
         this.renderFilteredNews(filteredNews);
@@ -160,6 +276,12 @@ class NewsApp {
     renderFilteredNews(newsArray) {
         const newsGrid = document.getElementById('newsGrid');
         newsGrid.innerHTML = '';
+
+        if (newsArray.length === 0) {
+            newsGrid.innerHTML = '<div class="no-results">No articles found matching your search.</div>';
+            document.getElementById('loadMoreBtn').style.display = 'none';
+            return;
+        }
 
         newsArray.forEach(news => {
             const newsCard = this.createNewsCard(news);
@@ -187,7 +309,6 @@ class NewsApp {
             newsGrid.appendChild(newsCard);
         });
 
-        // Show/hide load more button
         const loadMoreBtn = document.getElementById('loadMoreBtn');
         if (newsToShow.length >= filteredNews.length) {
             loadMoreBtn.style.display = 'none';
@@ -199,10 +320,14 @@ class NewsApp {
     createNewsCard(news) {
         const card = document.createElement('div');
         card.className = `news-card ${news.featured ? 'featured' : ''}`;
-        card.dataset.newsId = news.id;
 
         card.innerHTML = `
-            <div class="news-image"></div>
+            <div class="news-image">
+                <div class="image-placeholder">
+                    <i class="fas fa-image"></i>
+                    <span>Image: ${news.imageAlt}</span>
+                </div>
+            </div>
             <div class="news-content">
                 <span class="category-tag ${news.category}">${news.category}</span>
                 <h2 class="news-title">${news.title}</h2>
@@ -211,21 +336,60 @@ class NewsApp {
                     <div class="news-time">
                         <i class="fas fa-clock"></i>
                         <span>${news.timeAgo}</span>
+                        <span class="read-time">• ${news.readTime}</span>
                     </div>
                     <span class="news-source">${news.source}</span>
+                </div>
+                <div class="news-actions">
+                    <a href="${news.url}" target="_blank" rel="noopener noreferrer" class="read-article-btn">
+                        <i class="fas fa-external-link-alt"></i>
+                        Read Full Article
+                    </a>
+                    <button class="share-btn" data-news-id="${news.id}">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
                 </div>
             </div>
         `;
 
+        const shareBtn = card.querySelector('.share-btn');
+        shareBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.shareArticle(news);
+        });
+
         return card;
     }
 
-    openNewsDetail(newsId) {
-        const news = this.allNews.find(n => n.id == newsId);
-        if (news) {
-            // Create a simple modal or alert for demo purposes
-            alert(`Opening full article: "${news.title}"\n\nSource: ${news.source}\nCategory: ${news.category}\n\n${news.summary}\n\n[In a real app, this would open the full article]`);
+    shareArticle(news) {
+        if (navigator.share) {
+            navigator.share({
+                title: news.title,
+                text: news.summary,
+                url: news.url
+            });
+        } else {
+            navigator.clipboard.writeText(`${news.title}\n${news.url}`).then(() => {
+                this.showToast('Article link copied to clipboard!');
+            });
         }
+    }
+
+    showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
     }
 
     updateLastUpdated() {
@@ -233,7 +397,6 @@ class NewsApp {
         const timeString = now.toLocaleTimeString();
         document.getElementById('lastUpdated').textContent = `Last updated: ${timeString}`;
         
-        // Update every minute
         setInterval(() => {
             const now = new Date();
             const timeString = now.toLocaleTimeString();
@@ -242,14 +405,11 @@ class NewsApp {
     }
 }
 
-// Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new NewsApp();
 });
 
-// Add some dynamic effects
 document.addEventListener('DOMContentLoaded', () => {
-    // Animate news cards on scroll
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -264,7 +424,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Observe news cards
     const observeNewsCards = () => {
         document.querySelectorAll('.news-card').forEach(card => {
             card.style.opacity = '0';
@@ -274,14 +433,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Initial observation
     setTimeout(observeNewsCards, 100);
 
-    // Re-observe when new content is added
     const originalRenderNews = NewsApp.prototype.renderNews;
     NewsApp.prototype.renderNews = function(...args) {
         originalRenderNews.apply(this, args);
         setTimeout(observeNewsCards, 100);
     };
 });
-
